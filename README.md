@@ -38,4 +38,4 @@ As this app is using firestore, so for full functionality of the app you have to
 # Links :-  
 YouTube Video :- https://youtu.be/P62m0F9cAD0  
 Post :- Coming Soon  
-Article :- Coming Soon  
+Article :- https://amanjhagrolia.medium.com/flutter-app-linux-terminal-15930d796d71  
