@@ -36,6 +36,6 @@ Now App is ready to run -
 As this app is using firestore, so for full functionality of the app you have to connect this with firestore  
   
 # Links :-  
-YouTube Video :- Coming Soon  
+YouTube Video :- https://youtu.be/P62m0F9cAD0  
 Post :- Coming Soon  
 Article :- Coming Soon  
