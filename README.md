@@ -27,6 +27,11 @@ Now App is ready to run -
 - If you are using VSCode, then you can Directly run it using Run without Debugging  
 - If you are not using VSCode, So you can run it using "flutter run" command  
   
+# Enabling API :-  
+- As this app is working over API to run linux commands, so we have to enable API in our Linux Host  
+- So for that Start the webserver in that and Cpoy my CGI Files in cgi-bin directory of your webserver  
+- Also give permissions to run commands to your webserver service user i.e. apache  
+  
 # Some more things :-  
 As this app is using firestore, so for full functionality of the app you have to connect this with firestore  
   
