@@ -3,7 +3,6 @@ import 'package:LinuxTerminal/pages/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-
 //Main Function
 main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,9 +22,9 @@ class _LinuxTerminalState extends State<LinuxTerminal> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.dark(),
-        routes: {
-          "/": (context) => LinuxAppHome(),
-        },
+      routes: {
+        "/": (context) => LinuxAppHome(),
+      },
     );
   }
 }

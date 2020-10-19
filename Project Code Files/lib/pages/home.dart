@@ -17,7 +17,6 @@ class LinuxAppHome extends StatefulWidget {
 }
 
 class _LinuxAppHomeState extends State<LinuxAppHome> {
-
   //Variables Local to Class
   var command, status, output, id = 0;
   var cmndInput = TextEditingController();
@@ -32,11 +31,10 @@ class _LinuxAppHomeState extends State<LinuxAppHome> {
     return value;
   }
 
-  setHC () async {
-    ip = await getHostConfFromSP('hostIP')  ?? "127.0.0.1";
-    user = await getHostConfFromSP('User')  ?? "root";
+  setHC() async {
+    ip = await getHostConfFromSP('hostIP') ?? "127.0.0.1";
+    user = await getHostConfFromSP('User') ?? "root";
   }
-
 
   @override
   void initState() {
@@ -52,7 +50,6 @@ class _LinuxAppHomeState extends State<LinuxAppHome> {
     super.dispose();
   }
 
-
   //Function to get Command Output from Linux
   runCmnd() async {
     var url = "http://$ip/cgi-bin/linuxcmnd.py?command=$command";
@@ -62,9 +59,8 @@ class _LinuxAppHomeState extends State<LinuxAppHome> {
     output = responseBody["output"];
   }
 
-
   storeOutput() async {
-    var ids=[0];
+    var ids = [0];
     var d = await fsconnect.collection("TerminalHistory").get();
     for (var i in d.docs) {
       ids.add(i.data()['id']);
@@ -72,68 +68,67 @@ class _LinuxAppHomeState extends State<LinuxAppHome> {
     id = ids.reduce(max) + 1;
 
     fsconnect.collection("TerminalHistory").add({
-      'id' : id,
+      'id': id,
       'command': command,
       'status': status,
       'output': output,
     });
   }
 
-
-  terManage() { 
+  terManage() {
     setState(() {
       if (command == 'tput setaf 0') {
         activefClr = Colors.black;
         output = '$activefClr';
       } else if (command == 'tput setaf 1') {
         activefClr = Colors.red;
-        output = '$activefClr';   
+        output = '$activefClr';
       } else if (command == 'tput setaf 2') {
-        activefClr = Colors.green;  
-        output = '$activefClr';    
+        activefClr = Colors.green;
+        output = '$activefClr';
       } else if (command == 'tput setaf 3') {
-        activefClr = Colors.yellow;  
-        output = '$activefClr';    
+        activefClr = Colors.yellow;
+        output = '$activefClr';
       } else if (command == 'tput setaf 4') {
-        activefClr = Colors.blue;     
-        output = '$activefClr'; 
+        activefClr = Colors.blue;
+        output = '$activefClr';
       } else if (command == 'tput setaf 5') {
-        activefClr = Colors.pink;   
-        output = '$activefClr';   
+        activefClr = Colors.pink;
+        output = '$activefClr';
       } else if (command == 'tput setaf 6') {
-        activefClr = Colors.cyan;    
-        output = '$activefClr';  
+        activefClr = Colors.cyan;
+        output = '$activefClr';
       } else if (command == 'tput setaf 7') {
-        activefClr = Colors.white;    
-        output = '$activefClr';  
+        activefClr = Colors.white;
+        output = '$activefClr';
       } else if (command == 'tput setbf 0') {
         activebClr = Colors.black;
         output = '$activebClr';
       } else if (command == 'tput setbf 1') {
-        activebClr = Colors.red;      
+        activebClr = Colors.red;
         output = '$activebClr';
       } else if (command == 'tput setbf 2') {
-        activebClr = Colors.green;    
-        output = '$activebClr';  
+        activebClr = Colors.green;
+        output = '$activebClr';
       } else if (command == 'tput setbf 3') {
-        activebClr = Colors.yellow;  
+        activebClr = Colors.yellow;
         output = '$activebClr';
       } else if (command == 'tput setbf 4') {
-        activebClr = Colors.blue;     
-        output = '$activebClr'; 
+        activebClr = Colors.blue;
+        output = '$activebClr';
       } else if (command == 'tput setbf 5') {
-        activebClr = Colors.pink;     
-        output = '$activebClr'; 
+        activebClr = Colors.pink;
+        output = '$activebClr';
       } else if (command == 'tput setbf 6') {
-        activebClr = Colors.cyan;     
-        output = '$activebClr'; 
+        activebClr = Colors.cyan;
+        output = '$activebClr';
       } else if (command == 'tput setbf 7') {
-        activebClr = Colors.white;  
-        output = '$activebClr';    
+        activebClr = Colors.white;
+        output = '$activebClr';
       } else if (command == 'tput reset' || command == 'reset') {
         activefClr = Colors.green;
         activebClr = Colors.black;
-        output = 'Terminal Reset to Default';   
+        output = 'Terminal Reset to Default';
         lst = [];
       }
     });
@@ -165,10 +160,8 @@ class _LinuxAppHomeState extends State<LinuxAppHome> {
     );
   }
 
-
   //Function to Create Help dialog Box
   Future helpDialog() async {
-
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -189,101 +182,105 @@ class _LinuxAppHomeState extends State<LinuxAppHome> {
     );
   }
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
-
     //Getting Device Dimensions
     deviceHeight = MediaQuery.of(context).size.height;
     deviceWidth = MediaQuery.of(context).size.width;
-
 
     return Scaffold(
       backgroundColor: activebClr,
       drawer: SafeArea(child: HistoryDrawer()),
       appBar: AppBar(
         backgroundColor: Colors.black87,
-        title: Text('Linux Bash', style: TextStyle(color: Colors.amber),),
+        title: Text(
+          'Linux Bash',
+          style: TextStyle(color: Colors.amber),
+        ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.laptop_mac, color: Colors.greenAccent,),
+            icon: Icon(
+              Icons.laptop_mac,
+              color: Colors.greenAccent,
+            ),
             onPressed: ipDialog,
             splashColor: Colors.red,
           ),
           IconButton(
-            icon: Icon(Icons.help_outline, color: Colors.redAccent,), 
+            icon: Icon(
+              Icons.help_outline,
+              color: Colors.redAccent,
+            ),
             onPressed: helpDialog,
             splashColor: Colors.green,
           ),
         ],
       ),
-
       body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-
-        Container(
-          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          color: activebClr,
-          width: deviceWidth,
-          child: StreamBuilder(
-            stream: getStrings(Duration(microseconds: 1)),
-            builder: (context, stream) {
-              if (stream.hasData) {
-                return Container(child: Text('${stream.data}', style: TextStyle(color: activefClr),));
-              } else {
-                return CircularProgressIndicator();
-              }
-            },
-          ),
-        ),
-
-        Container(
-          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-          color: activebClr,
-          width: deviceWidth,
+        child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TextField(
-                autofocus: true,
-                focusNode: inputCmndNode,
-                cursorColor: activefClr,
-                controller: cmndInput,
-                style: TextStyle(
-                  color: activefClr,
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                color: activebClr,
+                width: deviceWidth,
+                child: StreamBuilder(
+                  stream: getStrings(Duration(microseconds: 1)),
+                  builder: (context, stream) {
+                    if (stream.hasData) {
+                      return Container(
+                          child: Text(
+                        '${stream.data}',
+                        style: TextStyle(color: activefClr),
+                      ));
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
                 ),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  prefixText: '[${user ?? 'root'}@${ip ?? '127.0.0.1'}]# ',
-                  prefixStyle: TextStyle(
-                    color: activefClr,
-                  )
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                color: activebClr,
+                width: deviceWidth,
+                child: Column(
+                  children: <Widget>[
+                    TextField(
+                      autofocus: true,
+                      focusNode: inputCmndNode,
+                      cursorColor: activefClr,
+                      controller: cmndInput,
+                      style: TextStyle(
+                        color: activefClr,
+                      ),
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          prefixText:
+                              '[${user ?? 'root'}@${ip ?? '127.0.0.1'}]# ',
+                          prefixStyle: TextStyle(
+                            color: activefClr,
+                          )),
+                      onSubmitted: (value) async {
+                        command = value;
+                        await runCmnd();
+                        terManage();
+                        lst.add("[$user@$ip]# $value\n$output");
+                        if (command == 'clear') {
+                          lst = [];
+                        }
+                        cmndInput.clear();
+                        inputCmndNode.requestFocus();
+                        storeOutput();
+                      },
+                    ),
+                  ],
                 ),
-                onSubmitted: (value) async {
-                  command = value;
-                  await runCmnd();
-                  terManage();
-                  lst.add("[$user@$ip]# $value\n$output");
-                  if (command == 'clear') {
-                    lst = [];
-                  }
-                  cmndInput.clear();
-                  inputCmndNode.requestFocus();
-                  storeOutput();
-                },
               ),
             ],
           ),
         ),
-      ],
-            ),
-          ),
-        ),
+      ),
     );
   }
 }
