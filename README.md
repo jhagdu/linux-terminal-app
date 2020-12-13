@@ -10,7 +10,7 @@ Download the Apk from this git repo, then install and use it
 Flutter should be installed and configured in your system  
 
 # How to start :-  
-Open Terminal/CMD and run command "flutter create AnimatedApp"  
+Open Terminal/CMD and run command "flutter create --org <your_org_domain> --project-name LinuxTerminal LinuxTerminalApp"  
   
 After that replace your lib and test folder with my lib and test folders  
 
